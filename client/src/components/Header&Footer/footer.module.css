@@ -1,0 +1,47 @@
+/*============================
+            FOOTER
+==============================*/
+
+footer .logo {
+    text-align: center;
+    font-family: 'Monoton', cursive;
+    color: #ffffff;
+    font-size: 30px;
+    padding: 10px 0px;
+    border-bottom: 1px solid #4d4d4d;
+}
+
+footer .wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    color: #828282;
+}
+
+footer .left,
+footer .right {
+    width: 50%;
+    padding: 15px;
+    max-width: 500px;
+
+}
+
+footer .business_nfo {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+footer .business_nfo .tag {
+
+    position: relative;
+    width: 180px;
+    margin-bottom: 30px;
+}
+footer .business_nfo .icon {
+    position: absolute;
+    font-size: 26px;
+    top: 10px;
+}
+footer .business_nfo .nfo {
+    padding-left: 40px;
+}
