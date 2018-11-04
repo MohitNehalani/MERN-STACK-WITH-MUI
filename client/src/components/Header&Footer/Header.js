@@ -84,9 +84,8 @@ class Header extends Component {
     )
 
 
-    showLinks = (type) => {
+    showLinks = (type,MyDrawer) => {
         let list = [];
-
 
             type.forEach((item) => {
                 if (!this.props.isAuth) {
@@ -100,7 +99,9 @@ class Header extends Component {
                 }
             });
 
-
+        if (MyDrawer) {
+            return list
+        }
         return list.map((item, i) => {
             if (item.name !== 'My Cart') {
                 return this.defaultLink(item, i)
@@ -138,8 +139,12 @@ class Header extends Component {
                             </IconButton>
                         </div>
                     </div>
-                    <MyDrawer show={this.props.show}
-                              toggleShow={this.props.toggleShow}/>
+                    <MyDrawer user={this.showLinks(this.state.user,MyDrawer)}
+                              page={this.showLinks(this.state.page,MyDrawer)}
+                              show={this.props.show}
+                              toggleShow={this.props.toggleShow}
+                              signOut={this.logoutUser}
+                    />
                     <div className={classes.navLinks}>
                         <div className={classes.top}>
                             {this.showLinks(this.state.user)}

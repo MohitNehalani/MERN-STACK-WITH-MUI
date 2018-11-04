@@ -1,71 +1,75 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import {withStyles} from '@material-ui/core/styles';
+import {Drawer, Divider, Button, Paper, Grid} from '@material-ui/core';
+import {NavLink, withRouter} from "react-router-dom"
 
-const styles = theme =>({
+const styles = theme => ({
     list: {
-        width: 250,
+        width: '100%',
     },
-    fullList: {
-        width: 'auto',
+    active: {
+        backgroundColor: theme.palette.cyan
     },
-  drawerTop:{
-    height:88,
-    backgroundColor: theme.palette.primary.main,
-    borderBottom:'2px solid #272723 '
-  },
+
+    menuItem:{
+        margin:10
+    },
+    drawerTop: {
+        height: 88,
+        backgroundColor: theme.palette.primary.main,
+        borderBottom: '2px solid #272723 ',
+        boxSizing: 'border-box',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent:'center',
+        fontFamily: "'Monoton', cursive",
+        color: '#ffffff',
+        fontSize: 22,
+        paddingRight: 10,
+    },
 });
 
 class SideDrawer extends React.Component {
     render() {
-        const { classes } = this.props;
-
-        const sideList = (
-            <div className={classes.list}>
-                <List>
-                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                        <ListItem button onClick={this.props.toggleShow} key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
-                    ))}
-                </List>
-                <Divider />
-                <List>
-                    {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                        <ListItem button onClick={this.props.toggleShow} key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
-                    ))}
-                </List>
-            </div>
-        );
-
+        const {classes} = this.props;
+        console.log(this.props.user)
+        console.log(this.props.page)
+        console.log(this.props)
+        if (this.props.history.location.pathname === '/user/signOut' ) {
+            this.props.signOut()
+        }
         return (
-            <div>
-                <Drawer open={this.props.show} onClose={this.props.toggleShow}>
-                  <div className={classes.drawerTop}>
-
-                  </div>
-                    <div
-                        tabIndex={0}
-                        role="button"
-                        onClick={this.toggleShow}
-                        onKeyDown={this.toggleShow}
-                    >
-                        {sideList}
+            <Paper>
+                <Drawer anchor="top" open={this.props.show} onClose={this.props.toggleShow}>
+                    <div onClick={this.props.toggleShow} className={classes.drawerTop}>
+                        Musical World
                     </div>
+                    <div className={classes.list}>
+                        <Grid container >
+                            {this.props.page.map((item, i) =>
+                                <Grid key={i} onClick={this.props.toggleShow} item xs={12} className={classes.menuItem}>
+                                    <NavLink  to={item.linkTo}>
+                                        <Button variant={this.props.history.location.pathname === item.linkTo ? "contained": "outlined"} fullWidth>{item.name}</Button>
+                                    </NavLink>
+                                </Grid>
+                            )}
+                        </Grid>
+                        <Divider/>
+                        <Grid container >
+                            {this.props.user.map((item, i) =>
+                                <Grid key={i} onClick={this.props.toggleShow} item xs={12} className={classes.menuItem}>
+                                    <NavLink  to={item.linkTo}>
+                                        <Button variant={this.props.history.location.pathname === item.linkTo ? "contained": "outlined"} fullWidth>{item.name}</Button>
+                                    </NavLink>
+                                </Grid>
+                            )}
+                        </Grid>
+                    </div>
+
+
                 </Drawer>
-            </div>
+            </Paper>
         );
     }
 }
@@ -74,4 +78,4 @@ SideDrawer.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SideDrawer);
+export default withRouter(withStyles(styles)(SideDrawer));
