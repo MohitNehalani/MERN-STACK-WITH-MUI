@@ -36,7 +36,7 @@ class SideDrawer extends React.Component {
         console.log(this.props.user)
         console.log(this.props.page)
         console.log(this.props)
-        if (this.props.history.location.pathname === '/user/signOut' ) {
+        if (this.props.location.pathname === '/user/signOut' ) {
             this.props.signOut()
         }
         return (
@@ -50,7 +50,7 @@ class SideDrawer extends React.Component {
                             {this.props.page.map((item, i) =>
                                 <Grid key={i} onClick={this.props.toggleShow} item xs={12} className={classes.menuItem}>
                                     <NavLink  to={item.linkTo}>
-                                        <Button variant={this.props.history.location.pathname === item.linkTo ? "contained": "outlined"} fullWidth>{item.name}</Button>
+                                        <Button variant={this.props.location.pathname === item.linkTo ? "contained": "outlined"} fullWidth>{item.name}</Button>
                                     </NavLink>
                                 </Grid>
                             )}
@@ -60,7 +60,7 @@ class SideDrawer extends React.Component {
                             {this.props.user.map((item, i) =>
                                 <Grid key={i} onClick={this.props.toggleShow} item xs={12} className={classes.menuItem}>
                                     <NavLink  to={item.linkTo}>
-                                        <Button variant={this.props.history.location.pathname === item.linkTo ? "contained": "outlined"} fullWidth>{item.name}</Button>
+                                        <Button variant={this.props.location.pathname === item.linkTo ? "contained": "outlined"} fullWidth>{item.name}</Button>
                                     </NavLink>
                                 </Grid>
                             )}
